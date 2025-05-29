@@ -1,0 +1,18 @@
+name: Run HidupAI Weekly Crons
+
+on:
+  schedule:
+    # Weekly Insight – Senin jam 06:00 WIB (23:00 UTC Minggu)
+    - cron: "0 23 * * 0"
+    # Weekly Check-in – Senin jam 12:00 WIB (05:00 UTC Senin)
+    - cron: "0 5 * * 1"
+
+jobs:
+  call-crons:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Weekly Insight Cron
+        run: curl -X POST https://hidupai.vercel.app/api/cron/weekly-insight
+
+      - name: Call Weekly Check-in Cron
+        run: curl -X POST https://hidupai.vercel.app/api/cron/checkin
